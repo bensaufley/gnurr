@@ -34,7 +34,8 @@ module Linte
     end
 
     def errors(json)
-      json.map { |errors| map_errors(errors) }
+      return [] unless json && !json.empty?
+      json.map { |files| map_errors(files) }
           .select { |_f, messages| messages && !messages.empty? }
     end
 
@@ -69,7 +70,6 @@ module Linte
       puts "#{left_bump}Linting #{@type.to_s.colorize(@spec[:color])}…".colorize(mode: :bold)
       format_errors || puts("#{left_bump(2)}#{"#{@type.to_s.upcase} all clear! ✔".colorize(color: :light_green)}")
       puts "#{left_bump}Done linting #{@type.to_s.colorize(@spec[:color])}\n".colorize(mode: :bold) if @options[:verbose]
-      puts "\n"
     end
 
     private
@@ -110,12 +110,12 @@ module Linte
       # Empty: filled by subclasses
     end
 
-    def standardize(column, line, linter, message, severity, error)
+    def standardize(message, column, line, linter, description, severity, error)
       {
         column: message[column],
         line: message[line],
         linter: message[linter],
-        message: message[message],
+        message: message[description],
         severity: message[severity] == error ? :error : :warning
       }
     end
@@ -143,7 +143,7 @@ module Linte
         file['filePath'],
         file['messages'].map do |message|
           next unless @files[file['filePath'].sub("#{@pwd}/", '')].include?(message['line'])
-          standardize('column', 'line', 'ruleId', 'message', 'severity', 2)
+          standardize(message, 'column', 'line', 'ruleId', 'message', 'severity', 2)
         end.reject(&:nil?)
       ]
     end
@@ -152,7 +152,7 @@ module Linte
   # Class from which Haml and Ruby extend
   class RubyBaseLinter < Linter
     def errors(json)
-      super(json['errors'])
+      super(json['files'])
     end
 
     private
@@ -161,7 +161,7 @@ module Linte
       [
         file['path'],
         file['offenses'].map do |message|
-          next unless files[file['path']].include?(message['line'])
+          next unless @files[file['path']].include?(message['location']['line'])
           standardize(message)
         end.reject(&:nil?)
       ]
@@ -221,12 +221,13 @@ module Linte
 
     private
 
-    def map_errors(filename, messages)
+    def map_errors(params)
+      filename, messages = params
       [
         filename,
         messages.map do |message|
-          next unless files[filename].include?(message['line'])
-          standardize('column', 'line', 'linter', 'reason', 'severity', 'error')
+          next unless @files[filename].include?(message['line'])
+          standardize(message, 'column', 'line', 'linter', 'reason', 'severity', 'error')
         end.reject(&:nil?)
       ]
     end
