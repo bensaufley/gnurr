@@ -1,5 +1,9 @@
 # LintTrap
 
+[![Code Climate](https://codeclimate.com/github/bensaufley/lint_trap/badges/gpa.svg)](https://codeclimate.com/github/bensaufley/lint_trap)
+[![Test Coverage](https://codeclimate.com/github/bensaufley/lint_trap/badges/coverage.svg)](https://codeclimate.com/github/bensaufley/lint_trap/coverage)
+[![Issue Count](https://codeclimate.com/github/bensaufley/lint_trap/badges/issue_count.svg)](https://codeclimate.com/github/bensaufley/lint_trap)
+
 Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to changed lines as reported by git.
 
 ## Installation
