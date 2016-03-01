@@ -9,6 +9,18 @@ Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to chan
 
 ## Installation
 
+**This gem is not yet hosted elsewhere.** To install, clone the repo, then
+`cd` into that directory and build the gem.
+
+```bash
+$ git clone https://github.com/bensaufley/lint_trap
+$ bundle install
+…
+$ rake install
+```
+
+### Eventually, you'll be able to:
+
 Add this line to your application's Gemfile:
 
 ```bash
