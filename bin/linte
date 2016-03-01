@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'linte'
+require 'optparse'
+
+options = {
+  stdout: true
+}
+
+option_parser = OptionParser.new do |opts|
+  opts.banner = 'Usage: linediffs [options]'
+
+  opts.on('-b', '--branch', 'Base branch: branch to diff against (default: master)') { |v| options[:branch] = v }
+  opts.on('-l', '--linters LIST', 'Linters to use (default: es,haml,ruby,scss (all))') { |v| options[:linters] = v.split(',').map(&:to_sym) }
+  opts.on('-v', '--verbose', 'Verbose mode (false unless specified)') { |v| options[:verbose] = true }
+
+  opts.on('-h', '--help', 'Prints this help') do
+    puts opts
+    exit
+  end
+end
+
+begin
+  option_parser.parse!
+  rescue OptionParser::InvalidOption => error
+    puts "Linte doesn't recognize that #{error}"
+    exit
+  rescue OptionParser::AmbiguousOption => error
+    puts "That's an #{error}"
+    exit
+end
+
+linter = Linte::Linter.new(options)
+
+linter.execute
