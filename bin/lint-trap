@@ -10,7 +10,7 @@ options = {
 }
 
 option_parser = OptionParser.new do |opts|
-  opts.banner = 'Usage: linediffs [options]'
+  opts.banner = 'Usage: lint-trap [options]'
 
   opts.on('-b', '--branch NAME', 'Base branch: branch to diff against (default: master)') { |v| options[:branch] = v }
   opts.on('-l', '--linters LIST', 'Linters to use (default: es,haml,ruby,scss (all))') { |v| options[:linters] = v.split(',').map(&:to_sym) }
