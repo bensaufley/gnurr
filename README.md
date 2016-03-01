@@ -6,7 +6,7 @@ Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to chan
 
 Add this line to your application's Gemfile:
 
-```sh
+```bash
 gem 'lint_trap', group: :development, require :false
 ```
 
