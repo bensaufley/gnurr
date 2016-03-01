@@ -1,6 +1,6 @@
-require 'linte/linter'
+require 'lint_trap/linter'
 
-module Linte
+module LintTrap
   # SASS Linter
   class ScssLinter < Linter
     def initialize(files, options)

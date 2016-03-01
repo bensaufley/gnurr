@@ -1,6 +1,6 @@
-require 'linte/linter'
+require 'lint_trap/linter'
 
-module Linte
+module LintTrap
   # Class from which Haml and Ruby extend
   class RubyBaseLinter < Linter
     def errors(json)

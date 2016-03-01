@@ -1,4 +1,4 @@
-module Linte
+module LintTrap
   # Base linter class from which each linter extends
   class Linter
     def initialize(files)

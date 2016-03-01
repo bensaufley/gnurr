@@ -2,7 +2,7 @@
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-require 'linte'
+require 'lint_trap'
 require 'optparse'
 
 options = {
@@ -25,13 +25,13 @@ end
 begin
   option_parser.parse!
   rescue OptionParser::InvalidOption => error
-    puts "Linte doesn't recognize that #{error}"
+    puts "LintTrap doesn't recognize that #{error}"
     exit
   rescue OptionParser::AmbiguousOption => error
     puts "That's an #{error}"
     exit
 end
 
-linter = Linte::Processor.new(options)
+linter = LintTrap::Processor.new(options)
 
 linter.execute

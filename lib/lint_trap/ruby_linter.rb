@@ -1,6 +1,6 @@
-require 'linte/ruby_base_linter'
+require 'lint_trap/ruby_base_linter'
 
-module Linte
+module LintTrap
   # Ruby Linter
   class RubyLinter < RubyBaseLinter
     def initialize(files, options)

@@ -1,4 +1,4 @@
-module Linte
+module LintTrap
   # Main class for execution
   class Processor
     LINTERS = {

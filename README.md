@@ -1,4 +1,4 @@
-# Linte
+# LintTrap
 
 Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to changed lines as reported by git.
 
@@ -7,7 +7,7 @@ Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to chan
 Add this line to your application's Gemfile:
 
 ```sh
-gem 'linte', group: :development, require :false
+gem 'lint_trap', group: :development, require :false
 ```
 
 And then execute:
@@ -19,7 +19,7 @@ $ bundle
 Or install it yourself as:
 
 ```sh
-$ gem install linte
+$ gem install lint_trap
 ```
 
 If you intend to use [ESLint], be sure to [install that in npm][npm-install].
@@ -29,17 +29,17 @@ gem dependencies.
 ## Usage
 
 ```rb
-linte = Linte::Processor.new(options)
+lint_trap = LintTrap::Processor.new(options)
 # Options:
 # branch: base branch to diff (default: master)
 # linters: which linters to run (default: es,haml,ruby,scss (all))
 # verbose: turn on verbose mode
-linte.execute
+lint_trap.execute
 ```
 
 ## Contributing
 
-1. Fork it ( https://github.com/bensaufley/linte/fork )
+1. Fork it ( https://github.com/bensaufley/lint_trap/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
