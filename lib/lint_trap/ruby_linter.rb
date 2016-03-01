@@ -4,14 +4,13 @@ module LintTrap
   # Ruby Linter
   class RubyLinter < RubyBaseLinter
     def initialize(files, options)
-      @options = options
       @type = :ruby
       @spec = {
         color: :yellow,
         command: 'rubocop -f json',
         extension: '.rb'
       }
-      super(files)
+      super(files, options)
     end
   end
 end

@@ -1,7 +1,8 @@
 module LintTrap
   # Base linter class from which each linter extends
   class Linter
-    def initialize(files)
+    def initialize(files, options)
+      @options = options
       @files = Hash[files.select { |file, _lines| File.extname(file) == @spec[:extension] }]
       @messages = {} if @files.empty?
       relevant_messages

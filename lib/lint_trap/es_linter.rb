@@ -4,7 +4,6 @@ module LintTrap
   # ES/JS Linter
   class EsLinter < Linter
     def initialize(files, options)
-      @options = options
       @type = :es
       @spec = {
         color: :red,
@@ -13,7 +12,7 @@ module LintTrap
       }
       @pwd = `printf $(pwd)`
 
-      super(files)
+      super(files, options)
     end
 
     private

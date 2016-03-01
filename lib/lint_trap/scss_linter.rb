@@ -4,14 +4,13 @@ module LintTrap
   # SASS Linter
   class ScssLinter < Linter
     def initialize(files, options)
-      @options = options
       @type = :scss
       @spec = {
         color: :blue,
         command: 'scss-lint -f JSON',
         extension: '.scss'
       }
-      super(files)
+      super(files, options)
     end
 
     private
