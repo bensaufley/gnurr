@@ -23,5 +23,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'colorize'
   spec.add_development_dependency 'awesome_print'
+  spec.add_development_dependency 'haml_lint'
+  spec.add_development_dependency 'scss_lint'
+  spec.add_development_dependency 'rubocop'
 
 end

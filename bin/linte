@@ -12,7 +12,7 @@ options = {
 option_parser = OptionParser.new do |opts|
   opts.banner = 'Usage: linediffs [options]'
 
-  opts.on('-b', '--branch', 'Base branch: branch to diff against (default: master)') { |v| options[:branch] = v }
+  opts.on('-b', '--branch NAME', 'Base branch: branch to diff against (default: master)') { |v| options[:branch] = v }
   opts.on('-l', '--linters LIST', 'Linters to use (default: es,haml,ruby,scss (all))') { |v| options[:linters] = v.split(',').map(&:to_sym) }
   opts.on('-v', '--verbose', 'Verbose mode (false unless specified)') { |v| options[:verbose] = true }
 
@@ -32,6 +32,6 @@ begin
     exit
 end
 
-linter = Linte::Linter.new(options)
+linter = Linte::Processor.new(options)
 
 linter.execute

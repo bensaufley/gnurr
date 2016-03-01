@@ -29,7 +29,7 @@ gem dependencies.
 ## Usage
 
 ```rb
-linte = Linte::Linter.new(options)
+linte = Linte::Processor.new(options)
 # Options:
 # branch: base branch to diff (default: master)
 # linters: which linters to run (default: es,haml,ruby,scss (all))
