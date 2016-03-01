@@ -37,6 +37,15 @@ lint_trap = LintTrap::Processor.new(options)
 lint_trap.execute
 ```
 
+```sh
+$ lint-trap --help
+Usage: lint-trap [options]
+    -b, --branch NAME                Base branch: branch to diff against (default: master)
+    -l, --linters LIST               Linters to use (default: es,haml,ruby,scss (all))
+    -v, --verbose                    Verbose mode (false unless specified)
+    -h, --help                       Prints this help
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/bensaufley/lint_trap/fork )
