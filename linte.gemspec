@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['contact@bensaufley.com']
   spec.summary       = %q{Diff-specific linter}
   spec.description   = %q{Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to changed lines as reported by git.}
-  spec.homepage      = ''
+  spec.homepage      = 'http://bensaufley.com'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
