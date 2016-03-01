@@ -1,5 +1,6 @@
 # LintTrap
 
+![Version](https://img.shields.io/badge/Version-0.1.3-yellow.svg)
 [![Code Climate](https://codeclimate.com/github/bensaufley/lint_trap/badges/gpa.svg)](https://codeclimate.com/github/bensaufley/lint_trap)
 [![Test Coverage](https://codeclimate.com/github/bensaufley/lint_trap/badges/coverage.svg)](https://codeclimate.com/github/bensaufley/lint_trap/coverage)
 [![Issue Count](https://codeclimate.com/github/bensaufley/lint_trap/badges/issue_count.svg)](https://codeclimate.com/github/bensaufley/lint_trap)
