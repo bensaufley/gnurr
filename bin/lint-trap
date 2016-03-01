@@ -24,12 +24,12 @@ end
 
 begin
   option_parser.parse!
-  rescue OptionParser::InvalidOption => error
-    puts "LintTrap doesn't recognize that #{error}"
-    exit
-  rescue OptionParser::AmbiguousOption => error
-    puts "That's an #{error}"
-    exit
+rescue OptionParser::InvalidOption => error
+  puts "LintTrap doesn't recognize that #{error}"
+  exit
+rescue OptionParser::AmbiguousOption => error
+  puts "That's an #{error}"
+  exit
 end
 
 linter = LintTrap::Processor.new(options)

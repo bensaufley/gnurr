@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = LintTrap::VERSION
   spec.authors       = ['Ben Saufley']
   spec.email         = ['contact@bensaufley.com']
-  spec.summary       = %q{Diff-specific linter}
-  spec.description   = %q{Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to changed lines as reported by git.}
+  spec.summary       = 'Diff-specific linter'
+  spec.description   = 'Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to changed lines as reported by git.'
   spec.homepage      = 'http://bensaufley.com'
   spec.license       = 'MIT'
 
@@ -17,7 +17,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
-  spec.requirements  += %w(npm eslint)
+  spec.requirements += %w(npm eslint git)
+
+  spec.required_ruby_version = '~> 2.3.0'
 
   spec.add_development_dependency 'bundler', '~> 1.6'
   spec.add_development_dependency 'rake'

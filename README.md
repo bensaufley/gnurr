@@ -1,6 +1,6 @@
 # LintTrap
 
-![Version](https://img.shields.io/badge/Version-0.1.4-yellow.svg)
+![Version](https://img.shields.io/badge/Version-0.1.5-yellow.svg)
 [![Code Climate](https://codeclimate.com/github/bensaufley/lint_trap/badges/gpa.svg)](https://codeclimate.com/github/bensaufley/lint_trap)
 [![Test Coverage](https://codeclimate.com/github/bensaufley/lint_trap/badges/coverage.svg)](https://codeclimate.com/github/bensaufley/lint_trap/coverage)
 [![Issue Count](https://codeclimate.com/github/bensaufley/lint_trap/badges/issue_count.svg)](https://codeclimate.com/github/bensaufley/lint_trap)
@@ -18,6 +18,13 @@ $ bundle install
 …
 $ rake install
 ```
+
+If you intend to use [ESLint], be sure to [install that in npm][npm-install].
+The other linters – [HAML-Lint], [Rubocop], and [SCSS-Lint] – are all listed as
+gem dependencies.
+
+As this gem is built to work with your git diffs, it does also require git.
+If you've managed to execute the above code, you're already there.
 
 ### Eventually, you'll be able to:
 
@@ -39,11 +46,9 @@ Or install it yourself as:
 $ gem install lint_trap
 ```
 
-If you intend to use [ESLint], be sure to [install that in npm][npm-install].
-The other linters – [HAML-Lint], [Rubocop], and [SCSS-Lint] – are all listed as
-gem dependencies.
-
 ## Usage
+
+In Ruby:
 
 ```rb
 lint_trap = LintTrap::Processor.new(options)
@@ -53,6 +58,8 @@ lint_trap = LintTrap::Processor.new(options)
 # verbose: turn on verbose mode
 lint_trap.execute
 ```
+
+In your shell:
 
 ```sh
 $ lint-trap --help

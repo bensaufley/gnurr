@@ -31,12 +31,16 @@ module LintTrap
 
     private
 
+    def extract_line_sets(diffs)
+      diffs.map do |lines|
+        nums = lines.match(/^.+\+(?<from>[0-9]+)(,(?<len>[0-9]+))? .+$/)
+        Range.new(nums[:from].to_i, nums[:from].to_i + nums[:len])
+      end.map(&:to_a).flatten
+    end
+
     def line_diffs(file)
-      `git diff --unified=0 #{@options[:branch]} #{file} | egrep '\\+[0-9]+(,[1-9][0-9]*)? ' | perl -pe 's/^.+\\+([0-9]+)(,([0-9]+))? .+$/\"$1-\".($1+$3)/e'`
-        .split("\n")
-        .map { |lines| Range.new(*lines.split('-').map(&:to_i)) }
-        .map(&:to_a)
-        .flatten
+      diffs = `git diff --unified=0 #{@options[:branch]} #{file} | egrep '\\+[0-9]+(,[1-9][0-9]*)? '`.split("\n")
+      extract_line_sets(diffs)
     end
 
     def diffs
