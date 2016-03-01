@@ -21,9 +21,9 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.6'
   spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'git', '~> 1.3.0'
   spec.add_development_dependency 'colorize'
-  spec.add_development_dependency 'awesome_print'
-  spec.add_development_dependency 'haml_lint'
-  spec.add_development_dependency 'scss_lint'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'haml_lint', '~> 0.16.1'
+  spec.add_development_dependency 'scss_lint', '~> 0.47.0'
+  spec.add_development_dependency 'rubocop', '~> 0.37.2'
 end
