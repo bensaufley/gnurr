@@ -67,9 +67,9 @@ module Gnurr
     end
 
     def pretty_print
-      puts "#{left_bump}Linting #{@type.to_s.colorize(color)}…".colorize(mode: :bold)
-      format_errors || puts("#{left_bump(2)}#{"#{@type.to_s.upcase} all clear! ✔".colorize(color: :light_green)}")
-      puts "#{left_bump}Done linting #{@type.to_s.colorize(color)}\n".colorize(mode: :bold) if @options[:verbose]
+      puts "#{left_bump}Linting #{type.to_s.colorize(color)}…".colorize(mode: :bold)
+      format_errors || puts("#{left_bump(2)}#{"#{type.to_s.upcase} all clear! ✔".colorize(color: :light_green)}")
+      puts "#{left_bump}Done linting #{type.to_s.colorize(color)}\n".colorize(mode: :bold) if @options[:verbose]
     end
 
     private
