@@ -1,3 +1,3 @@
-module LintTrap
+module Gnurr
   VERSION = '0.1.5'.freeze
 end

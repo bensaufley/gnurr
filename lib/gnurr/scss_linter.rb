@@ -1,6 +1,6 @@
-require 'lint_trap/linter'
+require 'gnurr/linter'
 
-module LintTrap
+module Gnurr
   # SASS Linter
   class ScssLinter < Linter
     def type

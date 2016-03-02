@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in lint_trap.gemspec
+# Specify your gem's dependencies in gnurr.gemspec
 gemspec
