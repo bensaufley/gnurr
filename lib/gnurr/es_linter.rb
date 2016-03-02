@@ -1,6 +1,6 @@
-require 'lint_trap/linter'
+require 'gnurr/linter'
 
-module LintTrap
+module Gnurr
   # ES/JS Linter
   class EsLinter < Linter
     def type

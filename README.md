@@ -1,9 +1,11 @@
-# LintTrap
+# Gnurr
+
+### _n._ The substance that collects over time in the bottoms of pockets or cuffs of trousers; pocket lint.
 
 ![Version](https://img.shields.io/badge/Version-0.1.5-yellow.svg)
-[![Code Climate](https://codeclimate.com/github/bensaufley/lint_trap/badges/gpa.svg)](https://codeclimate.com/github/bensaufley/lint_trap)
-[![Test Coverage](https://codeclimate.com/github/bensaufley/lint_trap/badges/coverage.svg)](https://codeclimate.com/github/bensaufley/lint_trap/coverage)
-[![Issue Count](https://codeclimate.com/github/bensaufley/lint_trap/badges/issue_count.svg)](https://codeclimate.com/github/bensaufley/lint_trap)
+[![Code Climate](https://codeclimate.com/github/bensaufley/gnurr/badges/gpa.svg)](https://codeclimate.com/github/bensaufley/gnurr)
+[![Test Coverage](https://codeclimate.com/github/bensaufley/gnurr/badges/coverage.svg)](https://codeclimate.com/github/bensaufley/gnurr/coverage)
+[![Issue Count](https://codeclimate.com/github/bensaufley/gnurr/badges/issue_count.svg)](https://codeclimate.com/github/bensaufley/gnurr)
 
 Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to changed lines as reported by git.
 
@@ -13,7 +15,7 @@ Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to chan
 `cd` into that directory and build the gem.
 
 ```bash
-$ git clone https://github.com/bensaufley/lint_trap
+$ git clone https://github.com/bensaufley/gnurr
 $ bundle install
 …
 $ rake install
@@ -31,7 +33,7 @@ If you've managed to execute the above code, you're already there.
 Add this line to your application's Gemfile:
 
 ```bash
-gem 'lint_trap', group: :development, require :false
+gem 'gnurr', group: :development, require :false
 ```
 
 And then execute:
@@ -43,7 +45,7 @@ $ bundle
 Or install it yourself as:
 
 ```sh
-$ gem install lint_trap
+$ gem install gnurr
 ```
 
 ## Usage
@@ -51,19 +53,19 @@ $ gem install lint_trap
 In Ruby:
 
 ```rb
-lint_trap = LintTrap::Processor.new(options)
+gnurr = Gnurr::Processor.new(options)
 # Options:
 # branch: base branch to diff (default: master)
 # linters: which linters to run (default: es,haml,ruby,scss (all))
 # verbose: turn on verbose mode
-lint_trap.execute
+gnurr.execute
 ```
 
 In your shell:
 
 ```sh
-$ lint-trap --help
-Usage: lint-trap [options]
+$ gnurr --help
+Usage: gnurr [options]
     -b, --branch NAME                Base branch: branch to diff against (default: master)
     -l, --linters LIST               Linters to use (default: es,haml,ruby,scss (all))
     -v, --verbose                    Verbose mode (false unless specified)
@@ -72,7 +74,7 @@ Usage: lint-trap [options]
 
 ## Contributing
 
-1. Fork it ( https://github.com/bensaufley/lint_trap/fork )
+1. Fork it ( https://github.com/bensaufley/gnurr/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

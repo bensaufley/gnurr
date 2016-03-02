@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'lint_trap/version'
+require 'gnurr/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'lint_trap'
-  spec.version       = LintTrap::VERSION
+  spec.name          = 'gnurr'
+  spec.version       = Gnurr::VERSION
   spec.authors       = ['Ben Saufley']
   spec.email         = ['contact@bensaufley.com']
   spec.summary       = 'Diff-specific linter'

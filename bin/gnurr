@@ -2,7 +2,7 @@
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-require 'lint_trap'
+require 'gnurr'
 require 'optparse'
 
 options = {
@@ -10,7 +10,7 @@ options = {
 }
 
 option_parser = OptionParser.new do |opts|
-  opts.banner = 'Usage: lint-trap [options]'
+  opts.banner = 'Usage: gnurr [options]'
 
   opts.on('-b', '--branch NAME', 'Base branch: branch to diff against (default: master)') { |v| options[:branch] = v }
   opts.on('-l', '--linters LIST', 'Linters to use (default: es,haml,ruby,scss (all))') { |v| options[:linters] = v.split(',').map(&:to_sym) }
@@ -25,13 +25,13 @@ end
 begin
   option_parser.parse!
 rescue OptionParser::InvalidOption => error
-  puts "LintTrap doesn't recognize that #{error}"
+  puts "Gnurr doesn't recognize that #{error}"
   exit
 rescue OptionParser::AmbiguousOption => error
   puts "That's an #{error}"
   exit
 end
 
-linter = LintTrap::Processor.new(options)
+linter = Gnurr::Processor.new(options)
 
 linter.execute

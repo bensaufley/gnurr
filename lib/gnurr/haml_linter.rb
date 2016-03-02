@@ -1,6 +1,6 @@
-require 'lint_trap/ruby_base_linter'
+require 'gnurr/ruby_base_linter'
 
-module LintTrap
+module Gnurr
   # HAML Linter
   class HamlLinter < RubyBaseLinter
     def type
