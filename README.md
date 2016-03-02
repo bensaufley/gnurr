@@ -2,7 +2,7 @@
 
 ### _n._ The substance that collects over time in the bottoms of pockets or cuffs of trousers; pocket lint.
 
-![Version](https://img.shields.io/badge/Version-0.1.5-yellow.svg)
+![Version](https://img.shields.io/badge/Version-0.1.6-yellow.svg)
 [![Code Climate](https://codeclimate.com/github/bensaufley/gnurr/badges/gpa.svg)](https://codeclimate.com/github/bensaufley/gnurr)
 [![Test Coverage](https://codeclimate.com/github/bensaufley/gnurr/badges/coverage.svg)](https://codeclimate.com/github/bensaufley/gnurr/coverage)
 [![Issue Count](https://codeclimate.com/github/bensaufley/gnurr/badges/issue_count.svg)](https://codeclimate.com/github/bensaufley/gnurr)
