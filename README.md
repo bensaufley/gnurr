@@ -11,24 +11,12 @@ Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to chan
 
 ## Installation
 
-**This gem is not yet hosted elsewhere.** To install, clone the repo, then
-`cd` into that directory and build the gem.
-
-```bash
-$ git clone https://github.com/bensaufley/gnurr
-$ bundle install
-…
-$ rake install
-```
-
 If you intend to use [ESLint], be sure to [install that in npm][npm-install].
 The other linters – [HAML-Lint], [Rubocop], and [SCSS-Lint] – are all listed as
 gem dependencies.
 
 As this gem is built to work with your git diffs, it does also require git.
 If you've managed to execute the above code, you're already there.
-
-### Eventually, you'll be able to:
 
 Add this line to your application's Gemfile:
 
