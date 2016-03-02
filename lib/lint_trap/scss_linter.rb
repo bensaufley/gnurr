@@ -8,7 +8,7 @@ module LintTrap
       @spec = {
         color: :blue,
         command: 'scss-lint -f JSON',
-        extension: '.scss'
+        filter: ->(file) { File.extname(file) == '.scss' }
       }
       super(files, options)
     end

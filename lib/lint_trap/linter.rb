@@ -3,7 +3,7 @@ module LintTrap
   class Linter
     def initialize(files, options)
       @options = options
-      @files = Hash[files.select { |file, _lines| File.extname(file) == @spec[:extension] }]
+      @files = Hash[files.select { |file, _lines| @spec[:filter].call(file) }]
       @messages = {} if @files.empty?
       relevant_messages
     end
@@ -35,15 +35,20 @@ module LintTrap
     end
 
     def puts_line_diffs
-      puts "#{left_bump(2)}Lines changed:".colorize(mode: :bold)
-      line_diffs.each do |filename, lines|
-        puts "#{left_bump(3)}#{filename}:#{lines.join(', ').colorize(:cyan)}"
+      diffs = line_diffs
+      if diffs.empty?
+        puts "#{left_bump(2)}No changes.".colorize(mode: :bold)
+      else
+        puts "#{left_bump(2)}Lines changed:".colorize(mode: :bold)
+        diffs.each do |filename, lines|
+          puts "#{left_bump(3)}#{filename}:#{lines.join(', ').colorize(:cyan)}"
+        end
       end
     end
 
     def line_diffs
       Hash[
-        @files.select { |file| File.extname(file) == @spec[:extension] }.map do |filename, lines|
+        @files.map do |filename, lines|
           [filename, array_to_ranges(lines)]
         end
       ]

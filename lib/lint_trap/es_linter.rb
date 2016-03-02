@@ -8,7 +8,7 @@ module LintTrap
       @spec = {
         color: :red,
         command: 'eslint -f json',
-        extension: '.js'
+        filter: ->(file) { File.extname(file) == '.js' }
       }
       @pwd = `printf $(pwd)`
 

@@ -8,7 +8,7 @@ module LintTrap
       @spec = {
         color: :magenta,
         command: 'haml-lint -r json',
-        extension: '.haml'
+        filter: ->(file) { File.extname(file) == '.haml' }
       }
       super(files, options)
     end
