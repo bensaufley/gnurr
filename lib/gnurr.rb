@@ -1,7 +1,6 @@
 require 'gnurr/version'
 require 'json'
 require 'colorize'
-require 'awesome_print'
 
 require 'gnurr/es_linter'
 require 'gnurr/haml_linter'
