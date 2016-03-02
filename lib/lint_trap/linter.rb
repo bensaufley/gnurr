@@ -3,7 +3,7 @@ module LintTrap
   class Linter
     def initialize(files, options)
       @options = options
-      @files = Hash[files.select { |file, _lines| File.extname(file) == @spec[:extension] }]
+      @files = Hash[files.select { |file, _lines| filter(file) }]
       @messages = {} if @files.empty?
       relevant_messages
     end
@@ -21,7 +21,7 @@ module LintTrap
     end
 
     def format_error(filename, message)
-      filename.colorize(color: @spec[:color]) + ':' +
+      filename.colorize(color: color) + ':' +
         format_line(message) + ' ' +
         format_severity(message) + ' ' +
         message[:message] +
@@ -35,22 +35,27 @@ module LintTrap
     end
 
     def puts_line_diffs
-      puts "#{left_bump(2)}Lines changed:".colorize(mode: :bold)
-      line_diffs.each do |filename, lines|
-        puts "#{left_bump(3)}#{filename}:#{lines.join(', ').colorize(:cyan)}"
+      diffs = line_diffs
+      if diffs.empty?
+        puts "#{left_bump(2)}No changes.".colorize(mode: :bold)
+      else
+        puts "#{left_bump(2)}Lines changed:".colorize(mode: :bold)
+        diffs.each do |filename, lines|
+          puts "#{left_bump(3)}#{filename}:#{lines.join(', ').colorize(:cyan)}"
+        end
       end
     end
 
     def line_diffs
       Hash[
-        @files.select { |file| File.extname(file) == @spec[:extension] }.map do |filename, lines|
+        @files.map do |filename, lines|
           [filename, array_to_ranges(lines)]
         end
       ]
     end
 
     def relevant_messages
-      @messages ||= errors(JSON.parse(`git diff --name-only --diff-filter=ACMRTUXB #{@options[:branch]} #{@files.map(&:first).join(' ')} | xargs #{@spec[:command]}`))
+      @messages ||= errors(JSON.parse(`git diff --name-only --diff-filter=ACMRTUXB #{@options[:branch]} #{@files.map(&:first).join(' ')} | xargs #{command}`))
     rescue => e
       if @options[:stdout]
         puts "#{'ERROR'.colorize(:red)}: #{e}"
@@ -62,9 +67,9 @@ module LintTrap
     end
 
     def pretty_print
-      puts "#{left_bump}Linting #{@type.to_s.colorize(@spec[:color])}…".colorize(mode: :bold)
+      puts "#{left_bump}Linting #{@type.to_s.colorize(color)}…".colorize(mode: :bold)
       format_errors || puts("#{left_bump(2)}#{"#{@type.to_s.upcase} all clear! ✔".colorize(color: :light_green)}")
-      puts "#{left_bump}Done linting #{@type.to_s.colorize(@spec[:color])}\n".colorize(mode: :bold) if @options[:verbose]
+      puts "#{left_bump}Done linting #{@type.to_s.colorize(color)}\n".colorize(mode: :bold) if @options[:verbose]
     end
 
     private
@@ -98,7 +103,7 @@ module LintTrap
     end
 
     def left_bump(indent = 1)
-      '▎'.ljust(indent * 2).colorize(color: @spec[:color])
+      '▎'.ljust(indent * 2).colorize(color: color)
     end
 
     def map_errors(errors)

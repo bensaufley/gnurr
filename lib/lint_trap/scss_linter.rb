@@ -3,14 +3,20 @@ require 'lint_trap/linter'
 module LintTrap
   # SASS Linter
   class ScssLinter < Linter
-    def initialize(files, options)
-      @type = :scss
-      @spec = {
-        color: :blue,
-        command: 'scss-lint -f JSON',
-        extension: '.scss'
-      }
-      super(files, options)
+    def type
+      :scss
+    end
+
+    def color
+      :blue
+    end
+
+    def command
+      'scss-lint -f JSON'
+    end
+
+    def filter(file)
+      File.extname(file) == '.scss'
     end
 
     private

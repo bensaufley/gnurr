@@ -34,7 +34,7 @@ module LintTrap
     def extract_line_sets(diffs)
       diffs.map do |lines|
         nums = lines.match(/^.+\+(?<from>[0-9]+)(,(?<len>[0-9]+))? .+$/)
-        Range.new(nums[:from].to_i, nums[:from].to_i + nums[:len])
+        Range.new(nums[:from].to_i, nums[:from].to_i + nums[:len].to_i)
       end.map(&:to_a).flatten
     end
 
