@@ -3,15 +3,24 @@ require 'lint_trap/ruby_base_linter'
 module LintTrap
   # Ruby Linter
   class RubyLinter < RubyBaseLinter
-    def initialize(files, options)
-      @type = :ruby
-      @eligible_files = `rubocop -L`.split("\n")
-      @spec = {
-        color: :yellow,
-        command: 'rubocop -f json',
-        filter: ->(file) { @eligible_files.include?(file) }
-      }
-      super(files, options)
+    def type
+      :ruby
+    end
+
+    def color
+      :yellow
+    end
+
+    def command
+      'rubocop -f json'
+    end
+
+    def filter(file)
+      eligible_files.include?(file)
+    end
+
+    def eligible_files
+      @eligible_files ||= `rubocop -L`.split("\n")
     end
   end
 end
