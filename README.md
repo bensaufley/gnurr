@@ -11,12 +11,10 @@ Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to chan
 
 ## Installation
 
-If you intend to use [ESLint], be sure to [install that in npm][npm-install].
-The other linters – [HAML-Lint], [Rubocop], and [SCSS-Lint] – are all listed as
-gem dependencies.
-
 As this gem is built to work with your git diffs, it does also require git.
 If you've managed to execute the above code, you're already there.
+
+Make sure you've installed the [Linters](#available-linters) you'd like to use.
 
 Add this line to your application's Gemfile:
 
@@ -59,6 +57,16 @@ Usage: gnurr [options]
     -v, --verbose                    Verbose mode (false unless specified)
     -h, --help                       Prints this help
 ```
+
+## Available Linters
+
+Below are the currently-supported linters. They are not required by this
+gem and must be independently installed.
+
+- [ESLint] for JavaScript ([requires npm][npm-install])
+- [HAML-Lint] (~> 0.16.1) for HAML
+- [Rubocop] (~> 0.47.0) for Ruby
+- [SCSS-Lint] (~> 0.37.2) for SCSS
 
 ## Contributing
 

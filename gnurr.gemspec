@@ -19,7 +19,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.requirements += [
     'git',
-    'npm and eslint for JS linting'
+    'npm and eslint for JS linting',
+    'haml_lint for Ruby linting',
+    'scss_lint for SCSS linting',
+    'rubocop for Ruby linting'
   ]
 
   spec.required_ruby_version = '~> 2.3.0'
@@ -28,7 +31,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'git', '~> 1.3.0'
   spec.add_development_dependency 'colorize'
+  spec.add_development_dependency 'pry'
   spec.add_development_dependency 'haml_lint', '~> 0.16.1'
   spec.add_development_dependency 'scss_lint', '~> 0.47.0'
   spec.add_development_dependency 'rubocop', '~> 0.37.2'
+
+  spec.add_runtime_dependency 'colorize'
 end
