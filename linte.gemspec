@@ -10,14 +10,17 @@ Gem::Specification.new do |spec|
   spec.email         = ['contact@bensaufley.com']
   spec.summary       = 'Diff-specific linter'
   spec.description   = 'Runs ESLint, SCSS-Lint, HAML-Lint, and Rubocop and returns info relevant to changed lines as reported by git.'
-  spec.homepage      = 'http://bensaufley.com'
+  spec.homepage      = 'http://github.com/bensaufley/gnurr'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
-  spec.requirements += %w(npm eslint git)
+  spec.requirements += [
+    'git',
+    'npm and eslint for JS linting'
+  ]
 
   spec.required_ruby_version = '~> 2.3.0'
 
