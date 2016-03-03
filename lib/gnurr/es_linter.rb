@@ -21,18 +21,32 @@ module Gnurr
 
     private
 
-    def map_errors(file)
-      [
-        file['filePath'],
-        file['messages'].map do |message|
-          next unless @files[file['filePath'].sub("#{pwd}/", '')].include?(message['line'])
-          standardize(message, 'column', 'line', 'ruleId', 'message', 'severity', 2)
-        end.reject(&:nil?)
-      ]
+    def file_path(file)
+      file['filePath']
+    end
+
+    def file_messages(file)
+      file['messages']
+    end
+
+    def requirements_met?
+      !`eslint -v`.nil?
+    rescue
+      false
     end
 
     def pwd
       @pwd ||= `printf $(pwd)`
+    end
+
+    def standardize_message(message)
+      {
+        column: message['column'],
+        line: message['line'],
+        linter: message['ruleId'],
+        message: message['message'],
+        severity: message['severity'] == 2 ? :error : :warning
+      }
     end
   end
 end

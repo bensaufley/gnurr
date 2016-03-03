@@ -21,15 +21,26 @@ module Gnurr
 
     private
 
-    def map_errors(params)
-      filename, messages = params
-      [
-        filename,
-        messages.map do |message|
-          next unless @files[filename].include?(message['line'])
-          standardize(message, 'column', 'line', 'linter', 'reason', 'severity', 'error')
-        end.reject(&:nil?)
-      ]
+    def file_path(params)
+      params[0]
+    end
+
+    def file_messages(params)
+      params[1]
+    end
+
+    def requirements_met?
+      Gem::Specification.find_all_by_name('scss_lint').any?
+    end
+
+    def standardize_message(message)
+      {
+        column: message['column'],
+        line: message['line'],
+        linter: message['linter'],
+        message: message['reason'],
+        severity: message['severity'] == 'error' ? :error : :warning
+      }
     end
   end
 end

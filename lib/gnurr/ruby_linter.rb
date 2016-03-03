@@ -22,5 +22,11 @@ module Gnurr
     def eligible_files
       @eligible_files ||= `rubocop -L`.split("\n")
     end
+
+    private
+
+    def requirements_met?
+      Gem::Specification.find_all_by_name('rubocop').any?
+    end
   end
 end
