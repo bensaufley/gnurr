@@ -93,17 +93,11 @@ module Gnurr
     end
 
     def requirements_met?
-      true # Set by subclasses
+      false # Can't lint from base class
     end
 
     def standardize_message(message)
-      {
-        column: message['column'],
-        line: message['line'],
-        linter: message['linter'],
-        message: message['message'],
-        severity: message['severity'] == 'error' ? :error : :warning
-      }
+      raise 'Can\'t standardize on base Linter class'
     end
   end
 end
