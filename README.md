@@ -52,9 +52,12 @@ In your shell:
 ```sh
 $ gnurr --help
 Usage: gnurr [options]
-    -b, --branch NAME                Base branch: branch to diff against (default: master)
+    -b, --base NAME                  Base reference: branch, SHA, etc for diff (default: master)
+    -e, --expanded                   Show lints for all changed files, not just changed lines (false
+                                     unless specified)
     -l, --linters LIST               Linters to use (default: es,haml,ruby,scss (all))
-    -v, --verbose                    Verbose mode (false unless specified)
+    -v, --[no-]verbose               Run verbosely
+        --version                    Show version
     -h, --help                       Prints this help
 ```
 
