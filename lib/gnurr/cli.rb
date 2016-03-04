@@ -17,7 +17,7 @@ module Gnurr
 
     def format_messages
       format_line_diffs if @options[:verbose]
-      return if messages.empty?
+      return false if messages.empty?
       puts "#{left_bump(2)}Messages:".colorize(mode: :bold)
       messages.each do |filename, messages|
         messages.each do |message|
@@ -34,6 +34,12 @@ module Gnurr
         format_severity(message) + ' ' +
         message[:message] +
         format_linter(message)
+    end
+
+    def format_expanded_notice
+      if @options[:expanded]
+        puts "#{left_bump(2)}Linting entire files".colorize(mode: :bold)
+      end
     end
 
     def format_finish
@@ -53,18 +59,23 @@ module Gnurr
 
     def format_line_diffs
       diffs = line_diffs
-      if diffs.empty?
-        puts "#{left_bump(2)}No changes.".colorize(mode: :bold)
-      else
-        puts "#{left_bump(2)}Lines changed:".colorize(mode: :bold)
-        diffs.each do |filename, lines|
-          puts "#{left_bump(3)}#{filename}:#{lines.join(', ').colorize(:cyan)}"
-        end
+      return if format_no_changes(diffs)
+      puts "#{left_bump(2)}Lines changed:".colorize(mode: :bold)
+      diffs.each do |filename, lines|
+        puts "#{left_bump(3)}#{filename}:#{lines.join(', ').colorize(:cyan)}"
       end
+      format_expanded_notice
     end
 
     def format_linter(message)
       message[:linter] ? " (#{message[:linter]})".colorize(:cyan) : ''
+    end
+
+    def format_no_changes(diffs)
+      if diffs.empty?
+        puts "#{left_bump(2)}No changes.".colorize(mode: :bold)
+        true
+      end
     end
 
     def format_severity(message)

@@ -1,17 +1,17 @@
 require 'gnurr/helper'
 require 'gnurr/cli'
+require 'gnurr/git'
 
 module Gnurr
   # Base linter class from which each linter extends
   class Linter
     include Gnurr::Helper
     include Gnurr::CLI
+    include Gnurr::Git
 
-    def initialize(files, options)
-      raise "Dependency not available for #{type}" unless requirements_met?
+    def initialize(options)
       @options = options
-      @files = Hash[files.select { |file, _lines| filter(file) }]
-      @messages = {} if @files.empty?
+      raise "Dependency not available for #{type}" unless requirements_met?
     rescue => e
       log_error(e)
     end
@@ -22,34 +22,44 @@ module Gnurr
 
     def parse_messages(json)
       return [] unless json.any?
-      messages = json.map { |files| map_errors(files) }
-                     .select { |_f, msgs| msgs && msgs.any? }
+      msgs = json.map { |f| map_errors(f) }
+                 .select { |_f, m| m && m.any? }
       if @options[:expanded]
-        messages
+        msgs.to_a
       else
-        filter_messages(messages)
+        filter_messages(msgs)
       end
+    end
+
+    def files
+      @files ||= Hash[full_file_diff.select { |file, _lines| filter(file) }]
     end
 
     def filter_messages(messages)
       messages.map do |filename, msgs|
-        msgs.reject! { |msg| !@files[filename].include?(msg[:line]) }
+        msgs.reject! { |msg| !files[filename].include?(msg[:line]) }
         msgs.empty? ? nil : [filename, msgs]
       end.reject(&:nil?)
     end
 
+    def full_range(filename)
+      [Range.new(1, `wc -l < #{filename}`.to_i + 1)]
+    end
+
     def line_diffs
       Hash[
-        @files.map do |filename, lines|
-          [filename, array_to_ranges(lines)]
+        files.map do |filename, lines|
+          [
+            filename,
+            @options[:expanded] ? full_range(filename) : array_to_ranges(lines)
+          ]
         end
       ]
     end
 
     def relevant_messages
-      JSON.parse(`git diff --name-only --diff-filter=ACMRTUXB \
-                 #{@options[:branch]} #{@files.map(&:first).join(' ')} \
-                 | xargs #{command}`)
+      return {} if files.empty?
+      JSON.parse(`#{command} #{escaped_files.join(' ')}`)
     rescue => e
       log_error(e)
       {}
@@ -57,8 +67,10 @@ module Gnurr
 
     private
 
-    def requirements_met?
-      true # Set by subclasses
+    def escaped_files
+      files.map do |file, _lines|
+        file.sub(/(\s)/, '\\\\\1')
+      end
     end
 
     def map_errors(file)
@@ -71,7 +83,12 @@ module Gnurr
     end
 
     def messages
+      return @messages = {} if files.empty?
       @messages ||= parse_messages(relevant_messages)
+    end
+
+    def requirements_met?
+      true # Set by subclasses
     end
 
     def standardize_message(message)

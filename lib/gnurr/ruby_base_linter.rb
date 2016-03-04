@@ -14,6 +14,7 @@ module Gnurr
     end
 
     def messages
+      return @messages = {} if files.empty?
       @messages ||= parse_messages(relevant_messages['files'])
     end
 

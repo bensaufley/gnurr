@@ -16,18 +16,22 @@ option_parser = OptionParser.new do |opts|
           'Base branch: branch to diff against (default: master)') do |v|
     options[:branch] = v
   end
+
   opts.on('-e', '--expanded',
           'Show lints for all changed files, not just changed lines (false',
           'unless specified)') do
     options[:expanded] = true
   end
+
   opts.on('-l', '--linters LIST',
           'Linters to use (default: es,haml,ruby,scss (all))') do |v|
     options[:linters] = v.split(',').map(&:to_sym)
   end
+
   opts.on('-v', '--[no-]verbose', 'Run verbosely') do |v|
     options[:verbose] = v
   end
+
   opts.on('--version', 'Show version') do
     puts Gnurr::VERSION
     exit
