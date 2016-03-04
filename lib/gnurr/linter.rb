@@ -96,7 +96,7 @@ module Gnurr
       false # Can't lint from base class
     end
 
-    def standardize_message(message)
+    def standardize_message(_message)
       raise 'Can\'t standardize on base Linter class'
     end
   end
