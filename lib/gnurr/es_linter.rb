@@ -29,6 +29,10 @@ module Gnurr
       file['messages']
     end
 
+    def relative_filename(filename)
+      filename.sub(%r{^#{pwd}/}, '')
+    end
+
     def requirements_met?
       !`eslint -v`.nil?
     rescue

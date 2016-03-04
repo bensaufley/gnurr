@@ -37,7 +37,9 @@ module Gnurr
 
     def filter_messages(messages)
       messages.map do |filename, msgs|
-        msgs.reject! { |msg| !files[filename].include?(msg[:line]) }
+        msgs.reject! do |msg|
+          !files[relative_filename(filename)].include?(msg[:line])
+        end
         msgs.empty? ? nil : [filename, msgs]
       end.reject(&:nil?)
     end
@@ -83,8 +85,11 @@ module Gnurr
     end
 
     def messages
-      return @messages = {} if files.empty?
       @messages ||= parse_messages(relevant_messages)
+    end
+
+    def relative_filename(filename)
+      filename
     end
 
     def requirements_met?

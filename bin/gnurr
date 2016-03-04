@@ -12,8 +12,8 @@ options = {
 option_parser = OptionParser.new do |opts|
   opts.banner = 'Usage: gnurr [options]'
 
-  opts.on('-b', '--branch NAME',
-          'Base branch: branch to diff against (default: master)') do |v|
+  opts.on('-b', '--base NAME',
+          'Base reference: branch, SHA, etc for diff (default: master)') do |v|
     options[:branch] = v
   end
 
