@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.requirements += [
     'git',
     'npm and eslint for JS linting',
-    'haml_lint for Ruby linting',
+    'haml_lint for HAML linting',
     'scss_lint for SCSS linting',
     'rubocop for Ruby linting'
   ]
