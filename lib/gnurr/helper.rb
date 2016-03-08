@@ -1,3 +1,5 @@
+require 'colorize'
+
 module Gnurr
   # Miscellaneous helper methods for the gem
   module Helper
@@ -15,6 +17,10 @@ module Gnurr
         right = obj
       end
       ranges + [Range.new(left, right)]
+    end
+
+    def escaped_filename(filename)
+      filename.sub(/(\s)/,'\\\\\1')
     end
 
     def left_bump(indent = 1)

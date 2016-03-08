@@ -1,6 +1,10 @@
+require 'gnurr/helper'
+
 module Gnurr
   # For handling/reading Git output
   module Git
+    include Gnurr::Helper
+
     private
 
     def extract_lines(diffs)
@@ -12,14 +16,14 @@ module Gnurr
 
     def full_file_diff
       return @diff if @diff
-      diff = `git diff #{@options[:branch]} --name-only --diff-filter=ACMRTUXB`
+      diff = `git diff #{@options[:base]} --name-only --diff-filter=ACMRTUXB`
                .split("\n")
                .map { |file| [file, file_diffs(file)] }
       @diff = Hash[diff.select { |_k, v| v && v.any? }]
     end
 
     def file_diffs(file)
-      diffs = `git diff --unified=0 #{@options[:branch]} #{file} \
+      diffs = `git diff --unified=0 #{@options[:base]} #{escaped_filename(file)} \
               | egrep '\\+[0-9]+(,[1-9][0-9]*)? '`
       extract_lines(diffs.split("\n"))
     end

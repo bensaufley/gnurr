@@ -41,8 +41,10 @@ In Ruby:
 ```rb
 gnurr = Gnurr::Processor.new(options)
 # Options:
-# branch: base branch to diff (default: master)
-# linters: which linters to run (default: es,haml,ruby,scss (all))
+# base: Base reference: branch, SHA, etc for diff (default: master)
+# expanded: Show lints for all changed files, not just changed lines
+#   (false unless specified)
+# linters: Linters to use (default: es,haml,ruby,scss (all))
 # verbose: turn on verbose mode
 gnurr.execute
 ```

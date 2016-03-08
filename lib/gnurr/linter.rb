@@ -1,3 +1,5 @@
+require 'json'
+
 require 'gnurr/helper'
 require 'gnurr/cli'
 require 'gnurr/git'
@@ -10,7 +12,12 @@ module Gnurr
     include Gnurr::Git
 
     def initialize(options)
-      @options = options
+      @options = {
+        base: 'master',
+        expanded: false,
+        stdout: false,
+        verbose: false
+      }.merge(options)
       raise "Dependency not available for #{type}" unless requirements_met?
     rescue => e
       log_error(e)
@@ -71,7 +78,7 @@ module Gnurr
 
     def escaped_files
       files.map do |file, _lines|
-        file.sub(/(\s)/, '\\\\\1')
+        escaped_filename(file)
       end
     end
 

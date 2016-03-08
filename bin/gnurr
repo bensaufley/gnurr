@@ -14,7 +14,7 @@ option_parser = OptionParser.new do |opts|
 
   opts.on('-b', '--base NAME',
           'Base reference: branch, SHA, etc for diff (default: master)') do |v|
-    options[:branch] = v
+    options[:base] = v
   end
 
   opts.on('-e', '--expanded',

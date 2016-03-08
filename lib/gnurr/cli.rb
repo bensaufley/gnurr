@@ -1,6 +1,11 @@
+require 'colorize'
+require 'gnurr/helper'
+
 module Gnurr
   # For outputting stuff using the command-line tool
   module CLI
+    include Gnurr::Helper
+
     def print_messages
       format_start
       format_messages || format_all_clear
