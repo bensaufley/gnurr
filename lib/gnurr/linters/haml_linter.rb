@@ -3,7 +3,7 @@ require 'gnurr/linters/ruby_based_linters'
 module Gnurr
   module Linters
     # HAML Linter
-    class HamlLinter
+    class HamlLinter < Linter
       include Gnurr::Linters::RubyBasedLinters
 
       def type
