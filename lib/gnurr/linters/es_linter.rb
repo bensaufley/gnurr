@@ -31,7 +31,7 @@ module Gnurr
       end
 
       def relative_filename(filename)
-        filename.sub(%r{^#{pwd}/}, '')
+        filename.sub(%r{^#{pwd}/}i, '')
       end
 
       def requirements_met?
