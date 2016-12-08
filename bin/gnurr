@@ -10,7 +10,7 @@ options = {
 }
 
 option_parser = OptionParser.new do |opts|
-  opts.banner = 'Usage: gnurr [options]'
+  opts.banner = 'Usage: gnurr [options] [--] [<path>...]'
 
   opts.on('-b', '--base NAME',
           'Base reference: branch, SHA, etc for diff (default: master)') do |v|
@@ -45,6 +45,9 @@ end
 
 begin
   option_parser.parse!
+  if !ARGV.nil? && ARGV.any?
+    options[:path] = ARGV
+  end
 rescue OptionParser::InvalidOption => error
   puts "Gnurr doesn't recognize that #{error}"
   exit

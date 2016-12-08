@@ -16,7 +16,8 @@ module Gnurr
         base: 'master',
         expanded: false,
         stdout: false,
-        verbose: false
+        verbose: false,
+        path: nil
       }.merge(options)
       raise "Dependency not available for #{type}" unless requirements_met?
     rescue => e
