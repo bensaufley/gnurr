@@ -78,7 +78,7 @@ module Gnurr
 
     def format_no_changes(diffs)
       if diffs.empty?
-        puts "#{left_bump(2)}No changes.".colorize(mode: :bold)
+        puts "#{left_bump(2)}No changes#{' at specified paths' unless @options[:path].nil?}.".colorize(mode: :bold)
         true
       end
     end

@@ -16,7 +16,8 @@ module Gnurr
 
     def full_file_diff
       return @diff if @diff
-      diff = `git diff #{@options[:base]} --name-only --diff-filter=ACMRTUXB`
+      path = @options[:path].nil? || !@options[:path].any? ? '' : "-- #{@options[:path].join(' ')}"
+      diff = `git diff #{@options[:base]} --name-only --diff-filter=ACMRTUXB #{path}`
                .split("\n")
                .map { |file| [file, file_diffs(file)] }
       @diff = Hash[diff.select { |_k, v| v && v.any? }]
