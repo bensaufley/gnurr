@@ -20,7 +20,7 @@ module Gnurr
     end
 
     def escaped_filename(filename)
-      filename.sub(/(\s)/,'\\\\\1')
+      filename.gsub(/(\s)/,'\\\\\1')
     end
 
     def left_bump(indent = 1)
