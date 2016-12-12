@@ -1,4 +1,5 @@
 require 'colorize'
+require 'open3'
 require 'gnurr/helper'
 
 module Gnurr
@@ -10,6 +11,8 @@ module Gnurr
       format_start
       format_messages || format_all_clear
       format_finish
+      format_errors
+      puts
       messages
     end
 
@@ -39,6 +42,16 @@ module Gnurr
         format_severity(message) + ' ' +
         message[:message] +
         format_linter(message)
+    end
+
+    def format_errors
+      return unless (@options[:verbose] || @options[:debug]) && @errors.any?
+      puts "#{left_bump}The following messages were encountered:".colorize(mode: :bold)
+      @errors.each do |error|
+        error.split("\n").each do |line|
+          puts "#{left_bump(2)}#{line}"
+        end
+      end
     end
 
     def format_expanded_notice

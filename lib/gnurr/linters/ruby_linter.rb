@@ -23,7 +23,7 @@ module Gnurr
       end
 
       def eligible_files
-        @eligible_files ||= `rubocop -L`.split("\n")
+        @eligible_files ||= run_command('rubocop -L').split("\n")
       end
 
       private

@@ -11,7 +11,10 @@ module Gnurr
     include Gnurr::CLI
     include Gnurr::Git
 
+    attr_reader :errors
+
     def initialize(options)
+      @errors = []
       @options = {
         base: 'master',
         expanded: false,
@@ -69,7 +72,7 @@ module Gnurr
 
     def relevant_messages
       return {} if files.empty?
-      JSON.parse(`#{command} #{escaped_files.join(' ')}`)
+      JSON.parse(run_command("#{command} #{escaped_files.join(' ')}"))
     rescue => e
       log_error(e)
       {}
@@ -106,6 +109,12 @@ module Gnurr
 
     def standardize_message(_message)
       raise 'Can\'t standardize on base Linter class'
+    end
+
+    def run_command(command)
+      output, err = Open3.capture3(command)
+      @errors << err unless err.nil? || err.length == 0
+      output
     end
   end
 end

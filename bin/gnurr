@@ -6,6 +6,7 @@ require 'gnurr'
 require 'optparse'
 
 options = {
+  debug: false,
   stdout: true
 }
 
@@ -35,6 +36,10 @@ option_parser = OptionParser.new do |opts|
   opts.on('--version', 'Show version') do
     puts Gnurr::VERSION
     exit
+  end
+
+  opts.on('--debug', 'Debug mode') do
+    options[:debug] = true
   end
 
   opts.on('-h', '--help', 'Prints this help') do
