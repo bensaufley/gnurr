@@ -62,10 +62,12 @@ module Gnurr
 
     def format_finish
       if @options[:verbose]
-        puts "#{left_bump}Done linting #{type.to_s.colorize(color)}\n"
+        puts "#{left_bump}Done linting #{type.to_s.colorize(color)}"
           .colorize(mode: :bold)
-      else
-        puts
+      end
+      if violation_count > 0 || @options[:verbose] || @options[:debug]
+        puts "#{left_bump}Violations: #{violation_count.to_s.colorize(severity_color(violation_count, files.length))}"
+          .colorize(mode: :bold)
       end
     end
 

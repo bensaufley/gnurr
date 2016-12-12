@@ -5,8 +5,6 @@ module Gnurr
   module Git
     include Gnurr::Helper
 
-    private
-
     def extract_lines(diffs)
       diffs.map do |lines|
         nums = lines.match(/^.+\+(?<from>[0-9]+)(,(?<len>[0-9]+))? .+$/)

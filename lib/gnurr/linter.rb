@@ -31,17 +31,6 @@ module Gnurr
       @options[:stdout] ? print_messages : messages
     end
 
-    def parse_messages(json)
-      return [] unless json.any?
-      msgs = json.map { |f| map_errors(f) }
-                 .select { |_f, m| m && m.any? }
-      if @options[:expanded]
-        msgs.to_a
-      else
-        filter_messages(msgs)
-      end
-    end
-
     def files
       @files ||= Hash[full_file_diff.select { |file, _lines| filter(file) }]
     end
@@ -78,6 +67,10 @@ module Gnurr
       {}
     end
 
+    def violation_count
+      messages.map(&:last).flatten.length
+    end
+
     private
 
     def escaped_files
@@ -97,6 +90,17 @@ module Gnurr
 
     def messages
       @messages ||= parse_messages(relevant_messages)
+    end
+
+    def parse_messages(json)
+      return [] unless json.any?
+      msgs = json.map { |f| map_errors(f) }
+                 .select { |_f, m| m && m.any? }
+      if @options[:expanded]
+        msgs.to_a
+      else
+        filter_messages(msgs)
+      end
     end
 
     def relative_filename(filename)
