@@ -1,4 +1,5 @@
 require 'colorize'
+require 'open3'
 require 'gnurr/helper'
 
 module Gnurr
@@ -10,6 +11,8 @@ module Gnurr
       format_start
       format_messages || format_all_clear
       format_finish
+      format_errors
+      puts
       messages
     end
 
@@ -41,6 +44,16 @@ module Gnurr
         format_linter(message)
     end
 
+    def format_errors
+      return unless (@options[:verbose] || @options[:debug]) && @errors.any?
+      puts "#{left_bump}The following messages were encountered:".colorize(mode: :bold)
+      @errors.each do |error|
+        error.split("\n").each do |line|
+          puts "#{left_bump(2)}#{line}"
+        end
+      end
+    end
+
     def format_expanded_notice
       if @options[:expanded]
         puts "#{left_bump(2)}Linting entire files".colorize(mode: :bold)
@@ -49,10 +62,12 @@ module Gnurr
 
     def format_finish
       if @options[:verbose]
-        puts "#{left_bump}Done linting #{type.to_s.colorize(color)}\n"
+        puts "#{left_bump}Done linting #{type.to_s.colorize(color)}"
           .colorize(mode: :bold)
-      else
-        puts
+      end
+      if violation_count > 0 || @options[:verbose] || @options[:debug]
+        puts "#{left_bump}Violations: #{violation_count.to_s.colorize(severity_color(violation_count, files.length))}"
+          .colorize(mode: :bold)
       end
     end
 

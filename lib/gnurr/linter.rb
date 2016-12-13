@@ -11,7 +11,10 @@ module Gnurr
     include Gnurr::CLI
     include Gnurr::Git
 
+    attr_reader :errors
+
     def initialize(options)
+      @errors = []
       @options = {
         base: 'master',
         expanded: false,
@@ -26,17 +29,6 @@ module Gnurr
 
     def execute
       @options[:stdout] ? print_messages : messages
-    end
-
-    def parse_messages(json)
-      return [] unless json.any?
-      msgs = json.map { |f| map_errors(f) }
-                 .select { |_f, m| m && m.any? }
-      if @options[:expanded]
-        msgs.to_a
-      else
-        filter_messages(msgs)
-      end
     end
 
     def files
@@ -69,10 +61,14 @@ module Gnurr
 
     def relevant_messages
       return {} if files.empty?
-      JSON.parse(`#{command} #{escaped_files.join(' ')}`)
+      JSON.parse(run_command("#{command} #{escaped_files.join(' ')}"))
     rescue => e
       log_error(e)
       {}
+    end
+
+    def violation_count
+      messages.map(&:last).flatten.length
     end
 
     private
@@ -96,6 +92,17 @@ module Gnurr
       @messages ||= parse_messages(relevant_messages)
     end
 
+    def parse_messages(json)
+      return [] unless json.any?
+      msgs = json.map { |f| map_errors(f) }
+                 .select { |_f, m| m && m.any? }
+      if @options[:expanded]
+        msgs.to_a
+      else
+        filter_messages(msgs)
+      end
+    end
+
     def relative_filename(filename)
       filename
     end
@@ -106,6 +113,12 @@ module Gnurr
 
     def standardize_message(_message)
       raise 'Can\'t standardize on base Linter class'
+    end
+
+    def run_command(command)
+      output, err = Open3.capture3(command)
+      @errors << err unless err.nil? || err.length == 0
+      output
     end
   end
 end

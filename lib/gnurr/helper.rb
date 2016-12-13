@@ -19,8 +19,13 @@ module Gnurr
       ranges + [Range.new(left, right)]
     end
 
+    def severity_color(violations, files)
+      return :green if violations.zero? || files.zero?
+      violation_count / files < 1 ? :yellow : :red
+    end
+
     def escaped_filename(filename)
-      filename.sub(/(\s)/,'\\\\\1')
+      filename.gsub(/(\s)/,'\\\\\1')
     end
 
     def left_bump(indent = 1)

@@ -5,8 +5,6 @@ module Gnurr
   module Git
     include Gnurr::Helper
 
-    private
-
     def extract_lines(diffs)
       diffs.map do |lines|
         nums = lines.match(/^.+\+(?<from>[0-9]+)(,(?<len>[0-9]+))? .+$/)
@@ -16,7 +14,7 @@ module Gnurr
 
     def full_file_diff
       return @diff if @diff
-      path = @options[:path].nil? || !@options[:path].any? ? '' : "-- #{@options[:path].join(' ')}"
+      path = @options[:path].nil? || !@options[:path].any? ? '' : "-- #{@options[:path].map { |p| escaped_filename(p) }.join(' ')}"
       diff = `git diff #{@options[:base]} --name-only --diff-filter=ACMRTUXB #{path}`
                .split("\n")
                .map { |file| [file, file_diffs(file)] }
